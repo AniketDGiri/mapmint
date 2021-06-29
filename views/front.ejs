@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>First Page</title>
+</head>
+<body>
+
+
+  <form class ="" action="/" method="post" enctype="multipart/form-data">
+
+    Select a file to upload:
+    <input type="file"  id="myFile" name="file_name" size="50">
+
+    <p>Click the button below do the display the file path of the file upload button above (you must select a file first).</p>
+
+    <label for="cars">Choose a type of the data:</label>
+    <select name="cars" id="cars1">
+      <option value="POINT_CLOUD">POINT_CLOUD</option>
+      <option value="CITYGML">CITYGML</option>
+      <option value="opel">Opel</option>
+      <option value="audi">Audi</option>
+    </select>
+    <br><br>
+      <button type="submit" onclick="myFunction()">Submit</button>
+  </form>
+
+
+
+  <p id="demo" name="ank"></p>
+
+<script>
+ function myFunction() {
+    var x = document.getElementById("myFile");
+    console.log(x.files.item(0).name);
+    file_name=x.files.item(0).name;
+    document.getElementById("demo").innerHTML = "You have selected the file:"+file_name;
+    newpath = '/home/ankdgiri/GSOC_WORK/cesium-ion-rest-api-examples-master/tutorials/rest-api/' + file_name;
+    console.log(newpath);
+
+    var s = document.getElementsByName('cars')[0];
+  var text = s.options[s.selectedIndex].text;
+
+  console.log(text);
+
+
+ }
+
+
+ </script>
+
+</body>
+</html>

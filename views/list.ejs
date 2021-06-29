@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.82/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.82/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>First Page</title>
+</head>
+<body>
+
+<h1> Data has been uploaded successfully </h1>
+<h1>ID of the data uploaded <%= day %> </h1>
+
+<button onclick="myFunction()">View Data in 3D</button>
+
+<p id="demo"></p>
+ <div id="cesiumContainer"></div>
+<script>
+function myFunction() {
+  // Grant CesiumJS access to your ion assets
+Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMjc5NTcxNC02MDFhLTRiYTctYjY4Mi05YjM1NzYyNjg1NjEiLCJpZCI6NTgyNzAsImlhdCI6MTYyMzA1NTU4M30.Khe326kKc1t4LwUTuGVfdmERMmGrKrU4-xovZujmWt8";
+
+var viewer = new Cesium.Viewer("cesiumContainer");
+
+var tileset = viewer.scene.primitives.add(
+  new Cesium.Cesium3DTileset({
+    url: Cesium.IonResource.fromAssetId(<%=day %>),
+    //This tileset doesn't have a location, so we're using a modelMatrix to place it at 0, 0 instead of drawing at the center of the earth
+    modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(
+      Cesium.Cartesian3.fromDegrees(0, 0)
+    ),
+  })
+);
+
+tileset.readyPromise
+  .then(function () {
+    viewer.zoomTo(tileset);
+
+    // Apply the default style if it exists
+    var extras = tileset.asset.extras;
+    if (
+      Cesium.defined(extras) &&
+      Cesium.defined(extras.ion) &&
+      Cesium.defined(extras.ion.defaultStyle)
+    ) {
+      tileset.style = new Cesium.Cesium3DTileStyle(extras.ion.defaultStyle);
+    }
+  })
+  .otherwise(function (error) {
+    console.log(error);
+  });
+}
+</script>
+
+  </body>
+</html>
