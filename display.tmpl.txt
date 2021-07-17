@@ -1,0 +1,7 @@
+#encoding UTF-8
+#import zoo
+<div class="copy">
+<p>
+$zoo._("Powered by")<a href="https://github.com/AniketDGiri/mapmint/tree/gsoc_2021" target="_blank">Link to github</a>
+</p>
+</div>
